@@ -1,0 +1,37 @@
+#!/usr/bin/env php
+<?php
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+class Main
+{
+    private $tennisGame;
+
+    public function __construct(TennisGame $tennisGame)
+    {
+        $this->tennisGame = $tennisGame;
+    }
+
+    public function run()
+    {
+        $score = $this->tennisGame->score($this->randomScore(), $this->randomScore());
+
+        if ($score !== 'Game') {
+            echo "\033[01;32m" . $score . "\n\033[0m\n";
+            return $this->run();
+        }
+
+        echo "\033[01;32m" . $score . "\n\033[0m";
+        echo("Well done!!!\n");
+    }
+
+    private function randomScore()
+    {
+        return rand(0, 4);
+    }
+}
+
+$game = new <your tennis game here>;
+
+$game = new Main($game);
+$game->run();
