@@ -20,7 +20,7 @@ class Main
         $this->players[rand(0, 1)]->scorePoint();
         $score = $this->scoreBoard->display($this->players[0], $this->players[1]);
 
-        if ($score !== 'Game') {
+        if (strpos($score, 'Game') !== 0) {
             echo "\033[01;33m" . $score . "\n\033[0m\n";
             return $this->run();
         }
@@ -32,7 +32,14 @@ class Main
 }
 
 $tennisScoreBoard = new TennisScoreBoard();
+$player1 = new TennisPlayer();
+$player2 = new TennisPlayer();
 
-$game = new Main($tennisScoreBoard, new TennisPlayer(), new TennisPlayer());
+if ($tennisScoreBoard->display($player1, $player2) !== "Love Love") {
+    echo "\033[01;31mGame started and score is not Love Love\n\033[0m\n";
+    die;
+}
+
+$game = new Main($tennisScoreBoard, $player1, $player2);
 $game->run();
 
