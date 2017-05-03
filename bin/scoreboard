@@ -8,7 +8,7 @@ class Main
     private $tennisScoreBoard;
     private $score;
 
-    public function __construct(TennisScoreBoard $tennisScoreBoard, Score $score)
+    public function __construct(ScoreBoard $tennisScoreBoard, Score $score)
     {
         $this->tennisScoreBoard = $tennisScoreBoard;
         $this->score = $score;
@@ -16,11 +16,11 @@ class Main
 
     public function run()
     {
-        $score->playerScored(rand(0, 1));
-        $formattedScore = $score->getFormattedScoreForScoreBoard($this->tennisScoreBoard);
+        $this->score->playerScored(rand(0, 1));
+        $formattedScore = $this->score->getFormattedScoreForScoreBoard($this->tennisScoreBoard);
 
         if ($formattedScore !== 'Game') {
-            echo "\033[01;32m" . $formattedScore . "\n\033[0m\n";
+            echo "\033[01;33m" . $formattedScore . "\n\033[0m\n";
             return $this->run();
         }
 
@@ -30,8 +30,8 @@ class Main
 
 }
 
-$tennisScoreBoard = new <your tennis score board here>;
-$tennisScore = new <your tennis score here>;
+$tennisScoreBoard = new TennisScoreBoard();
+$tennisScore = new TennisScore();
 
 $game = new Main($tennisScoreBoard, $tennisScore);
 $game->run();
