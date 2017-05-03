@@ -1,0 +1,38 @@
+#!/usr/bin/env php
+<?php
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+class Main
+{
+    private $tennisScoreBoard;
+    private $score;
+
+    public function __construct(TennisScoreBoard $tennisScoreBoard, Score $score)
+    {
+        $this->tennisScoreBoard = $tennisScoreBoard;
+        $this->score = $score;
+    }
+
+    public function run()
+    {
+        $score->playerScored(rand(0, 1));
+        $formattedScore = $score->getFormattedScoreForScoreBoard($this->tennisScoreBoard);
+
+        if ($formattedScore !== 'Game') {
+            echo "\033[01;32m" . $formattedScore . "\n\033[0m\n";
+            return $this->run();
+        }
+
+        echo "\033[01;32m" . $formattedScore . "\n\033[0m";
+        echo("Well done!!!\n");
+    }
+
+}
+
+$tennisScoreBoard = new <your tennis score board here>;
+$tennisScore = new <your tennis score here>;
+
+$game = new Main($tennisScoreBoard, $tennisScore);
+$game->run();
+
